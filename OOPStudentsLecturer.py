@@ -3,6 +3,7 @@ from numpy import mean
 all_students = []
 all_lectures = []
 
+
 class Person:
     def __init__(self, name, surname):
         self.name = name
@@ -22,6 +23,7 @@ class Person:
             average_grade_per_course[key] = value
         return average_grade_per_course
 
+
 class Student(Person):
 
     def __init__(self, name, surname, gender):
@@ -40,8 +42,8 @@ class Student(Person):
             finished_courses += f'{i}'
         for k, v in self.get_average_grade_per_course().items():
             self.average_grades += f'Средняя оценка за домашние задания {k}: {mean(v)}\n'
-        return f'\nИмя: {self.name} \nФамилия: {self.surname}\n{self.average_grades}'\
-               f'Курсы в процессе изучения: {",".join(courses)}\n'\
+        return f'\nИмя: {self.name} \nФамилия: {self.surname}\n{self.average_grades}' \
+               f'Курсы в процессе изучения: {",".join(courses)}\n' \
                f'Завершенные курсы: {finished_courses}\n'
 
     def __ge__(self, other):
@@ -50,8 +52,9 @@ class Student(Person):
     def __le__(self, other):
         return self.get_all_average_grade() <= other.get_all_average_grade()
 
-    def rate_mentor (self, lecturer, course, grade):
-        if isinstance(lecturer, Lecturer) and course in lecturer.courses_attached and course in self.courses_in_progress:
+    def rate_mentor(self, lecturer, course, grade):
+        if isinstance(lecturer,
+                      Lecturer) and course in lecturer.courses_attached and course in self.courses_in_progress:
             if course in lecturer.grades:
                 lecturer.grades[course] += [grade]
             else:
@@ -85,7 +88,7 @@ class Lecturer(Mentor):
 
 class Reviewer(Mentor):
     def __init__(self, name, surname):
-        super().__init__( name, surname)
+        super().__init__(name, surname)
 
     def rate_hw(self, student, course, grade):
         if isinstance(student, Student) and course in self.courses_attached and course in student.courses_in_progress:
@@ -169,7 +172,6 @@ best_student.rate_mentor(second_cool_lecturer, 'GIT', 10)
 best_student.rate_mentor(second_cool_lecturer, 'GIT', 5)
 not_best_student.rate_mentor(cool_lecturer, 'GIT', 5)
 not_best_student.rate_mentor(cool_lecturer, 'Python', 7)
-
 
 print(cool_reviewer)
 print(second_cool_lecturer)
